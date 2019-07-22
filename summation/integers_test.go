@@ -2,20 +2,37 @@ package main
 
 import "testing"
 
-func BenchmarkThousand(b *testing.B) {
-	for n := 0; n < b.N; n++ {
-		sumFormula(1000)
+func BenchmarkSummationLoop(b *testing.B) {
+	benchmarks := []struct {
+		name string
+		num  int
+	}{
+		{"Thousand", 1000},
+		{"Billion", 1000000000},
+	}
+	for _, bm := range benchmarks {
+		b.Run(bm.name, func(b *testing.B) {
+			for i := 0; i < b.N; i++ {
+				sumLoop(bm.num)
+			}
+		})
 	}
 }
 
-func BenchmarkBillion(b *testing.B) {
-	for n := 0; n < b.N; n++ {
-		sumFormula(1000000000)
+func BenchmarkSummationFormula(b *testing.B) {
+	benchmarks := []struct {
+		name string
+		num  int
+	}{
+		{"Thousand", 1000},
+		{"Billion", 1000000000},
+		{"Quintillion", 1000000000000000000},
 	}
-}
-
-func BenchmarkQuintillion(b *testing.B) {
-	for n := 0; n < b.N; n++ {
-		sumFormula(1000000000000000000)
+	for _, bm := range benchmarks {
+		b.Run(bm.name, func(b *testing.B) {
+			for i := 0; i < b.N; i++ {
+				sumFormula(bm.num)
+			}
+		})
 	}
 }
