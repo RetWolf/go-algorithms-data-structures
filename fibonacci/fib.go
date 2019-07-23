@@ -3,8 +3,10 @@ package main
 import "fmt"
 
 func main() {
-	res := fibRecurse(20)
-	fmt.Print(res)
+	recurse := fibRecurse(20)
+	loop := fibLoop(20)
+	fmt.Println(recurse)
+	fmt.Println(loop)
 }
 
 func fibRecurse(n int) int {
@@ -16,5 +18,11 @@ func fibRecurse(n int) int {
 }
 
 func fibLoop(n int) int {
-	return 0
+	prev := 0
+	current := 1
+	for i := 1; i < n; i++ {
+		prev, current = current, current+prev
+	}
+
+	return current
 }
