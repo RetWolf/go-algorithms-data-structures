@@ -108,3 +108,61 @@ func (list *SLinkedList) delete(el int) {
 		}
 	}
 }
+
+func (list *SLinkedList) sum() int {
+	if list.isEmpty() {
+		return 0
+	}
+
+	total := 0
+	for temp := list.head; temp != nil; temp = temp.next {
+		total += temp.val
+	}
+	return total
+}
+
+func (list *SLinkedList) max() int {
+	if list.isEmpty() {
+		return 0
+	}
+
+	max := list.head.val
+	for temp := list.head; temp != nil; temp = temp.next {
+		if temp.val > max {
+			max = temp.val
+		}
+	}
+	return max
+}
+
+func (list *SLinkedList) min() int {
+	if list.isEmpty() {
+		return 0
+	}
+
+	min := list.head.val
+	for temp := list.head; temp != nil; temp = temp.next {
+		if temp.val < min {
+			min = temp.val
+		}
+	}
+	return min
+}
+
+func (list *SLinkedList) removeDuplicates() {
+	values := make(map[string]int)
+	values[fmt.Sprintf("%v", list.head.val)] = 1
+
+	prev, curr := list.head, list.head.next
+	for curr != nil {
+		if values[fmt.Sprintf("%v", curr.val)] == 1 {
+			// Value already exists in list, need to remove
+			prev.next = curr.next
+			curr = curr.next
+		} else {
+			// Value hasn't been found in list yet, increment map
+			values[fmt.Sprintf("%v", curr.val)] = 1
+			prev, curr = curr, curr.next
+		}
+	}
+}
