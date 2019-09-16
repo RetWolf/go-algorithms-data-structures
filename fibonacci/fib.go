@@ -22,11 +22,10 @@ func fibRecurse(n int) int {
 // O(n)
 // This is fairly optimal
 func fibLoop(n int) int {
-	prev := 0
-	current := 1
-	for i := 1; i < n; i++ {
-		prev, current = current, current+prev
+	curr := 1
+	for prev, i := 0, 1; i < n; i++ {
+		prev, curr = curr, curr+prev
 	}
 
-	return current
+	return curr
 }
